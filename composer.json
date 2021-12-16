@@ -9,6 +9,7 @@
         "64robots/nova-fields": "^0.22.0",
         "anaseqal/nova-import": "^0.0.6",
         "benjacho/belongs-to-many-field": "^2.0",
+        "classic-o/nova-media-library": "^1.0",
         "eminiarts/nova-tabs": "^1.4",
         "everestmx/nova-belongs-to-many-field": "^0.0.5",
         "fruitcake/laravel-cors": "^2.0",

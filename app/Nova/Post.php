@@ -6,6 +6,7 @@ use App\Imports\PostImport;
 use App\Nova\Actions\ImportPost;
 use App\Nova\Metrics\CountPost;
 use Benjacho\BelongsToManyField\BelongsToManyField;
+use ClassicO\NovaMediaLibrary\MediaLibrary;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
@@ -53,7 +54,9 @@ class Post extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('Title')
             ->rules('required')
+
             ->creationRules('unique:posts,title'),
+          MediaLibrary::make('Image'),
             Trix::make('content')
                 ->rules('required'),
             BelongsToManyField::make('tag','tags')

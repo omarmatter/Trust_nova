@@ -22,6 +22,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             app()->setlocale('');
         });
 
+
         Nova::style('miami-ice-them', asset('assets/css/customStyle.css'));
 
     }
@@ -84,7 +85,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [ new NovaImport,];
+        return [
+            new NovaImport,
+            new \ClassicO\NovaMediaLibrary\NovaMediaLibrary()
+        ];
     }
 
     /**

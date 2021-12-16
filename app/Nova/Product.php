@@ -85,13 +85,14 @@ class Product extends Resource
                             Trix::make('desc')->rules('required'),
 
                         ]),
-                        Image::make('image')->disk('public')->prunable()->creationRules('required') ,
-//                    Badge::make('status' , function (){
-//                        return \App\Models\product::productStatuses()[$this->status];
-//                    })->map([
-//                        'in stock' => 'success',
-//                        'out of stock' => 'danger',
-//                    ]),
+
+                    Image::make('image')->disk('public')->prunable()->creationRules('required') ,
+                    Badge::make('status' , function (){
+                        return isset($this->status) ? \App\Models\product::productStatuses()[$this->status] : '';
+                    })->map([
+                        'in stock' => 'success',
+                        'out of stock' => 'danger',
+                    ])->onlyOnDetail(),
                 ],
                 'Other Info' => [
                     Row::make('productDetailse', [
@@ -99,9 +100,9 @@ class Product extends Resource
                         'S' => 'Small',
                         'M' => 'Medium',
                         'L' => 'Large',
-                    ])->fieldClasses('w-full px-8 py-6')->displayUsingLabels(),
+                    ])->fieldClasses('w-full px-8 py-6')->displayUsingLabels()->rules('required'),
                     \R64\NovaFields\Number::make('price')->fieldClasses('w-full px-8 py-6')->min(1)->max(1000)->step(0.01)->rules('required') ,
-                ])->fillUsing(function ($request,$model){
+                ])->prepopulateRowWhenEmpty()->fillUsing(function ($request,$model){
 
                     $model::saved(function ($model) use ($request){
 
@@ -109,7 +110,7 @@ class Product extends Resource
 
                        foreach ($dataRows as $data){
                            Log::info($data);
-                           if(!$data['id']){
+                           if(!array_key_exists("id", $data)){
                                $product_detailse = new product_detailse();
                                $product_detailse->product_id= $model->id;
                            }else{
@@ -118,10 +119,10 @@ class Product extends Resource
 
                            }
 //                           $data=(object)$data;
-                           Log::info($data['Size']);
+                           Log::info($data['size']);
 
                            $product_detailse->product_id= $model->id ;
-                           $product_detailse->Size = $data['Size'];
+                           $product_detailse->Size = $data['size'];
                            $product_detailse->price= $data['price'];
                            $product_detailse->save();
                        }
