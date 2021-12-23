@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Acm\RepeatRow\RepeatRow;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\File;
@@ -48,7 +49,9 @@ class Category extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('name')->rules('required'),
            Image::make('image', 'image')->rules('required')->disk('public')->prunable(),
-            HasMany::make('products')
+            HasMany::make('products'),
+
+            RepeatRow::make('test')
         ];
     }
 

@@ -13,3 +13,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/nova-components/RepeatRow/node_modules
+/nova-components/RowFeilde/node_modules

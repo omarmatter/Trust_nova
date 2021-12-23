@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Acm\RepeatRow\RepeatRow;
 use App\Models\product_detailse;
 use App\Nova\Actions\Actions;
 use App\Nova\Actions\productactions;
@@ -95,15 +96,20 @@ class Product extends Resource
                     ])->onlyOnDetail(),
                 ],
                 'Other Info' => [
+                       RepeatRow::make('omar')->hues(['price','select'])->options([
+                           'S' => 'Small',
+                           'M' => 'Medium',
+                           'L' => 'Large',
+                       ]),
                     Row::make('productDetailse', [
                          \R64\NovaFields\Select::make('Size')->options([
                         'S' => 'Small',
                         'M' => 'Medium',
                         'L' => 'Large',
-                    ])->fieldClasses('w-full px-8 py-6')->displayUsingLabels()->rules('required'),
+                    ])->fieldClasses('w-full px-8 py-6')->displayUsingLabels()->rules(['required'])->creationRules('unique:product_detailses,product_id'),
                     \R64\NovaFields\Number::make('price')->fieldClasses('w-full px-8 py-6')->min(1)->max(1000)->step(0.01)->rules('required') ,
                 ])->prepopulateRowWhenEmpty()->fillUsing(function ($request,$model){
-
+                   Log::alert($request->productdetailse);
                     $model::saved(function ($model) use ($request){
 
                         $dataRows=$request->productdetailse?:[];

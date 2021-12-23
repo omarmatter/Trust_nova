@@ -7,7 +7,13 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "build-RowFeilde": "cd nova-components/RowFeilde && npm run dev",
+        "build-RowFeilde-prod": "cd nova-components/RowFeilde && npm run prod",
+        "build-row-feilde": "cd nova-components/RowFeilde && npm run dev",
+        "build-row-feilde-prod": "cd nova-components/RowFeilde && npm run prod",
+        "build-repeat-row": "cd nova-components/RepeatRow && npm run dev",
+        "build-repeat-row-prod": "cd nova-components/RepeatRow && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.21",
