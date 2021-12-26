@@ -247,6 +247,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['resourceName', 'field']
@@ -421,16 +422,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            inputs: [],
-            input: '',
-            select: '',
-            price: '',
+            inputs: [{ price: '', size: '' }],
+            option: [],
+            options: '',
+
+            huses: '',
+
+            data: [],
             size: ''
         };
     },
@@ -439,53 +454,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: ['resourceName', 'resourceId', 'field'],
     created: function created() {
-        var huses = this.field.hues;
-        var options = this.field.options;
+        this.huses = this.field.hues;
+        this.options = this.field.options;
+        //
+        // let optionElement = "";
+        // for (let huse of huses) {
+        //
+        //     if (huse == 'price') {
+        //       this.input=`  <label >Price</label><br> <input  class=" my-6 w-full form-control form-input form-input-bordered"  type="number" />`
+        //
+        //     } else {
+        //         for( const option in options){
+        //             console.log(option)
+        //             optionElement += ` <option value='${option} '  v-model="price">${options[option]}</option>`
+        //
+        //         }
+        //         this.select= `<label>Size</label><br><select  v-model="size" class="w-full form-control form-select my-6"> ${optionElement}</select>`;
+        //
+        //     }
+        // }
 
-        var optionElement = "";
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
+        // this.inputs.push(this.huses)
+        this.option.push(this.options);
 
-        try {
-            for (var _iterator = huses[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var huse = _step.value;
-
-
-                if (huse == 'price') {
-                    this.input = '  <label >Price</label><br> <input  class=" my-6 w-full form-control form-input form-input-bordered"  type="number" />';
-                } else {
-                    for (var option in options) {
-                        console.log(option);
-                        optionElement += ' <option value=\'' + option + ' \'  v-model="price">' + options[option] + '</option>';
-                    }
-                    this.select = '<label>Size</label><br><select  v-model="size" class="w-full form-control form-select my-6"> ' + optionElement + '</select>';
-                }
-            }
-        } catch (err) {
-            _didIteratorError = true;
-            _iteratorError = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion && _iterator.return) {
-                    _iterator.return();
-                }
-            } finally {
-                if (_didIteratorError) {
-                    throw _iteratorError;
-                }
-            }
-        }
-
-        this.inputs.push(this.select);
-        this.inputs.push(this.input);
+        // console.log(huses)
     },
 
 
     methods: {
         addRow: function addRow() {
-            this.inputs.push(this.select);
-            this.inputs.push(this.input);
+            this.inputs.push({ price: '', size: '' });
+            // this.inputs.push(this.input)
+        },
+        deleteRow: function deleteRow(index) {
+            this.inputs.splice(index, 1);
         },
 
 
@@ -493,6 +495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Set the initial, internal value for the field.
          */
         setInitialValue: function setInitialValue() {
+
             this.value = this.field.value || '';
         },
 
@@ -501,8 +504,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
          * Fill the given FormData object with the field's internal value.
          */
         fill: function fill(formData) {
-            console.log(this.price);
-            formData.append(this.field.attribute, this.value || '');
+            var self = this;
+            formData.append('inputs', JSON.stringify(self.inputs));
+            // formData.append('input', this.inputs || '')
+            // formData.append('price', this.price || '')
         }
     }
 });
@@ -26863,14 +26868,89 @@ var render = function() {
         "template",
         { slot: "field" },
         [
-          _vm._l(_vm.inputs, function(input, index) {
-            return _c("div", { key: input.id }, [
-              _c("label"),
+          _vm._l(_vm.inputs, function(item, index) {
+            return _c("div", { key: index }, [
+              _c("label", [_vm._v("Price")]),
               _vm._v(" "),
-              _c("div", {
-                staticStyle: {},
-                domProps: { innerHTML: _vm._s(input) }
-              })
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: item.price,
+                    expression: "item.price "
+                  }
+                ],
+                staticClass: " my-6 mx-3  form-input form-input-bordered",
+                staticStyle: { height: "30px", width: "36%" },
+                attrs: { type: "number" },
+                domProps: { value: item.price },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(item, "price", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("label", [_vm._v("Size")]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: item.size,
+                      expression: "item.size"
+                    }
+                  ],
+                  staticClass: " form-select my-6",
+                  staticStyle: { height: "30px", width: "36%" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        item,
+                        "size",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                _vm._l(_vm.options, function(op, index) {
+                  return _c("option", { domProps: { value: index } }, [
+                    _vm._v(_vm._s(op))
+                  ])
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger p-2 ",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteRow(index)
+                    }
+                  }
+                },
+                [_vm._v(" X")]
+              )
             ])
           }),
           _vm._v(" "),

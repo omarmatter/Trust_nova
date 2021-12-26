@@ -96,44 +96,44 @@ class Product extends Resource
                     ])->onlyOnDetail(),
                 ],
                 'Other Info' => [
-                       RepeatRow::make('omar')->hues(['price','select'])->options([
+                       RepeatRow::make('product_details')->hues(['price','select'])->options([
                            'S' => 'Small',
                            'M' => 'Medium',
                            'L' => 'Large',
-                       ]),
-                    Row::make('productDetailse', [
-                         \R64\NovaFields\Select::make('Size')->options([
-                        'S' => 'Small',
-                        'M' => 'Medium',
-                        'L' => 'Large',
-                    ])->fieldClasses('w-full px-8 py-6')->displayUsingLabels()->rules(['required'])->creationRules('unique:product_detailses,product_id'),
-                    \R64\NovaFields\Number::make('price')->fieldClasses('w-full px-8 py-6')->min(1)->max(1000)->step(0.01)->rules('required') ,
-                ])->prepopulateRowWhenEmpty()->fillUsing(function ($request,$model){
-                   Log::alert($request->productdetailse);
-                    $model::saved(function ($model) use ($request){
-
-                        $dataRows=$request->productdetailse?:[];
-
-                       foreach ($dataRows as $data){
-                           Log::info($data);
-                           if(!array_key_exists("id", $data)){
-                               $product_detailse = new product_detailse();
-                               $product_detailse->product_id= $model->id;
-                           }else{
-                               $product_detailse =  product_detailse::find($data['id']);
-                               $product_detailse->updated_at= date("Y-m-d");
-
-                           }
-//                           $data=(object)$data;
-                           Log::info($data['size']);
-
-                           $product_detailse->product_id= $model->id ;
-                           $product_detailse->Size = $data['size'];
-                           $product_detailse->price= $data['price'];
-                           $product_detailse->save();
-                       }
-                    });
-                    }),
+                       ])->onlyOnForms(),
+//                    Row::make('productDetailse', [
+//                         \R64\NovaFields\Select::make('Size')->options([
+//                        'S' => 'Small',
+//                        'M' => 'Medium',
+//                        'L' => 'Large',
+//                    ])->fieldClasses('w-full px-8 py-6')->displayUsingLabels()->rules(['required'])->creationRules('unique:product_detailses,product_id'),
+//                    \R64\NovaFields\Number::make('price')->fieldClasses('w-full px-8 py-6')->min(1)->max(1000)->step(0.01)->rules('required') ,
+//                ])->prepopulateRowWhenEmpty()->fillUsing(function ($request,$model){
+//                   Log::alert($request->productdetailse);
+//                    $model::saved(function ($model) use ($request){
+//
+//                        $dataRows=$request->productdetailse?:[];
+//
+//                       foreach ($dataRows as $data){
+//                           Log::info($data);
+//                           if(!array_key_exists("id", $data)){
+//                               $product_detailse = new product_detailse();
+//                               $product_detailse->product_id= $model->id;
+//                           }else{
+//                               $product_detailse =  product_detailse::find($data['id']);
+//                               $product_detailse->updated_at= date("Y-m-d");
+//
+//                           }
+////                           $data=(object)$data;
+//                           Log::info($data['size']);
+//
+//                           $product_detailse->product_id= $model->id ;
+//                           $product_detailse->Size = $data['size'];
+//                           $product_detailse->price= $data['price'];
+//                           $product_detailse->save();
+//                       }
+//                    });
+//                    }),
                         ]
             ]))->withToolbar(true),
 
