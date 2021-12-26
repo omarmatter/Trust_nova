@@ -26938,19 +26938,21 @@ var render = function() {
                 0
               ),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger p-2 ",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteRow(index)
-                    }
-                  }
-                },
-                [_vm._v(" X")]
-              )
+              _vm.inputs.length > 1
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger p-2 ",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteRow(index)
+                        }
+                      }
+                    },
+                    [_vm._v(" X")]
+                  )
+                : _vm._e()
             ])
           }),
           _vm._v(" "),

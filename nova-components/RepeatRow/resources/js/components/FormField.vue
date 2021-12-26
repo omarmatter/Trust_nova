@@ -14,7 +14,7 @@
                     <select v-model="item.size" class=" form-select my-6" style="height: 30px; width:36%;">
                         <option v-for="(op, index) in options " :value="index">{{ op }}</option>
                     </select>
-                   <button class="btn btn-danger p-2 " type="button"  @click="deleteRow(index)" > X</button>
+                   <button class="btn btn-danger p-2 " type="button" v-if="inputs.length >1"  @click="deleteRow(index)" > X</button>
             </div>
             <button @click="addRow" type="button" class="btn btn-primary p-3">Add Row</button>
         </template>
