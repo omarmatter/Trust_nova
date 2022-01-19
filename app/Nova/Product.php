@@ -9,11 +9,13 @@ use App\Nova\Actions\productactions;
 use App\Nova\Actions\ProductStatusInStock;
 use App\Nova\Actions\ProductStatusOutStock;
 use App\Nova\Filters\ProductByCategory;
+use App\Rules\CustomRule;
 use Eminiarts\Tabs\Tab;
 use Eminiarts\Tabs\Tabs;
 use Eminiarts\Tabs\TabsOnEdit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\Badge;
 use Laravel\Nova\Fields\BelongsTo;
@@ -100,7 +102,7 @@ class Product extends Resource
                            'S' => 'Small',
                            'M' => 'Medium',
                            'L' => 'Large',
-                       ])->onlyOnForms(),
+                       ])->rules(new CustomRule())->onlyOnForms(),
 //                    Row::make('productDetailse', [
 //                         \R64\NovaFields\Select::make('Size')->options([
 //                        'S' => 'Small',
@@ -185,6 +187,31 @@ class Product extends Resource
    return [
 new productactions()
    ];
+    }
+
+    protected static function afterValidation(NovaRequest $request, $validator)
+    {
+
+        $data =json_decode($request->inputs , true);
+
+        foreach ( $data as $value) {
+
+      $va=    Validator::make( [
+              'price' => $value['price'],
+              'size' => $value['size'],
+
+          ],
+              [
+                  'price' => 'required',
+                  'size' => 'required',
+              ]);
+            if ($va->fails())
+            {
+                $validator->errors()->merge($va->errors());
+            }
+
+            Log::info($validator->errors());
+        }
     }
 
 }

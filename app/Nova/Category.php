@@ -51,7 +51,7 @@ class Category extends Resource
            Image::make('image', 'image')->rules('required')->disk('public')->prunable(),
             HasMany::make('products'),
 
-            RepeatRow::make('test')
+
         ];
     }
 
