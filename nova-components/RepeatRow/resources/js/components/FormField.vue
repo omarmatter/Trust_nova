@@ -61,6 +61,7 @@ export default {
         this.options = this.field.options
 
     },
+
     methods: {
         addRow() {
             this.inputs.push({price: '', size: ''})
@@ -83,6 +84,7 @@ export default {
           this.options_selected = [];
           for (var i = 0; i < this.inputs.length ; i++) {
              if(this.inputs[i].size) {
+
                  this.options_selected.push(this.inputs[i].size)
              }
           }

@@ -56,7 +56,7 @@ class Post extends Resource
             ->rules('required')
 
             ->creationRules('unique:posts,title'),
-          MediaLibrary::make('Image'),
+          MediaLibrary::make('Image')->array(),
             Trix::make('content')
                 ->rules('required'),
             BelongsToManyField::make('tag','tags')

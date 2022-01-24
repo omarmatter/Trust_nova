@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -174,32 +174,59 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(2);
-module.exports = __webpack_require__(13);
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-Nova.booting(function (Vue, router, store) {
-  Vue.component('index-repeat-row', __webpack_require__(3));
-  Vue.component('detail-repeat-row', __webpack_require__(6));
-  Vue.component('form-repeat-row', __webpack_require__(9));
-});
+__webpack_require__(3);
+module.exports = __webpack_require__(19);
+
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+Nova.booting(function (Vue, router, store) {
+  Vue.component('index-repeat-row', __webpack_require__(4));
+  Vue.component('detail-repeat-row', __webpack_require__(7));
+  Vue.component('form-repeat-row', __webpack_require__(10));
+});
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(4)
+var __vue_script__ = __webpack_require__(5)
 /* template */
-var __vue_template__ = __webpack_require__(5)
+var __vue_template__ = __webpack_require__(6)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -238,7 +265,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -254,7 +281,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -274,15 +301,15 @@ if (false) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(7)
+var __vue_script__ = __webpack_require__(8)
 /* template */
-var __vue_template__ = __webpack_require__(8)
+var __vue_template__ = __webpack_require__(9)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -321,7 +348,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -336,7 +363,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -356,15 +383,15 @@ if (false) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
-var __vue_script__ = __webpack_require__(10)
+var __vue_script__ = __webpack_require__(11)
 /* template */
-var __vue_template__ = __webpack_require__(12)
+var __vue_template__ = __webpack_require__(18)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -403,14 +430,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_nova___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_nova__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
 //
 //
@@ -492,6 +519,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.options_selected = [];
             for (var i = 0; i < this.inputs.length; i++) {
                 if (this.inputs[i].size) {
+
                     this.options_selected.push(this.inputs[i].size);
                 }
             }
@@ -503,7 +531,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -26837,230 +26865,18 @@ if (hadRuntime) {
 });
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "default-field",
-    {
-      attrs: {
-        field: _vm.field,
-        errors: _vm.errors,
-        "show-help-text": _vm.showHelpText
-      }
-    },
-    [
-      _c(
-        "template",
-        { slot: "field" },
-        [
-          _vm._l(_vm.inputs, function(item, index) {
-            return _c("div", { key: index, staticStyle: { display: "flex" } }, [
-              _c("div", { staticClass: "col" }, [
-                _c("label", [_vm._v("Price ")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: item.price,
-                      expression: "item.price "
-                    }
-                  ],
-                  staticClass: " my-3 mx-3  form-input form-input-bordered  ",
-                  staticStyle: { height: "30px", width: "50%" },
-                  attrs: { type: "number" },
-                  domProps: { value: item.price },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(item, "price", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.errors.errors.price
-                  ? _c(
-                      "div",
-                      { staticClass: "error-text  text-danger help-text" },
-                      [_vm._v(_vm._s(_vm.errors.errors.price[index]) + " ")]
-                    )
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2" }, [
-                _c("label", [_vm._v("Size")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: item.size,
-                        expression: "item.size"
-                      }
-                    ],
-                    staticClass: " form-select my-3",
-                    staticStyle: { height: "30px", width: "50%" },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            item,
-                            "size",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        },
-                        function($event) {
-                          return _vm.setOptionsSelected()
-                        }
-                      ]
-                    }
-                  },
-                  _vm._l(_vm.options, function(op, index) {
-                    return _c(
-                      "option",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.options_selected.includes(index),
-                            expression: "!options_selected.includes(index)"
-                          }
-                        ],
-                        domProps: { value: index }
-                      },
-                      [_vm._v(_vm._s(op))]
-                    )
-                  }),
-                  0
-                ),
-                _vm._v(" "),
-                _vm.inputs.length > 1
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger p-2 ",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteRow(index)
-                          }
-                        }
-                      },
-                      [_vm._v(" X")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _vm.errors.errors.size
-                  ? _c(
-                      "span",
-                      { staticClass: "error-text  text-danger help-text" },
-                      [_vm._v(_vm._s(_vm.errors.errors.size[index]) + " ")]
-                    )
-                  : _vm._e()
-              ])
-            ])
-          }),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary p-3",
-              attrs: { type: "button" },
-              on: { click: _vm.addRow }
-            },
-            [_vm._v("Add Row")]
-          )
-        ],
-        2
-      )
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c023248a", module.exports)
-  }
-}
-
-/***/ }),
 /* 13 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 if (false) {
   module.exports = require('./vue.common.prod.js')
 } else {
-  module.exports = __webpack_require__(20)
+  module.exports = __webpack_require__(14)
 }
 
 
 /***/ }),
-/* 20 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39073,10 +38889,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(21).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(15).setImmediate))
 
 /***/ }),
-/* 21 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -39132,7 +38948,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(22);
+__webpack_require__(16);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -39143,10 +38959,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 22 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -39336,10 +39152,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(23)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(17)))
 
 /***/ }),
-/* 23 */
+/* 17 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -39527,6 +39343,187 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "default-field",
+    {
+      attrs: {
+        field: _vm.field,
+        errors: _vm.errors,
+        "show-help-text": _vm.showHelpText
+      }
+    },
+    [
+      _c(
+        "template",
+        { slot: "field" },
+        [
+          _vm._l(_vm.inputs, function(item, index) {
+            return _c("div", { key: index, staticStyle: { display: "flex" } }, [
+              _c("div", { staticClass: "col" }, [
+                _c("label", [_vm._v("Price ")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: item.price,
+                      expression: "item.price "
+                    }
+                  ],
+                  staticClass: " my-3 mx-3  form-input form-input-bordered  ",
+                  staticStyle: { height: "30px", width: "50%" },
+                  attrs: { type: "number" },
+                  domProps: { value: item.price },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(item, "price", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors.errors.price
+                  ? _c(
+                      "div",
+                      { staticClass: "error-text  text-danger help-text" },
+                      [_vm._v(_vm._s(_vm.errors.errors.price[index]) + " ")]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-2" }, [
+                _c("label", [_vm._v("Size")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: item.size,
+                        expression: "item.size"
+                      }
+                    ],
+                    staticClass: " form-select my-3",
+                    staticStyle: { height: "30px", width: "50%" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            item,
+                            "size",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          return _vm.setOptionsSelected()
+                        }
+                      ]
+                    }
+                  },
+                  _vm._l(_vm.options, function(op, index) {
+                    return _c(
+                      "option",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.options_selected.includes(index),
+                            expression: "!options_selected.includes(index)"
+                          }
+                        ],
+                        domProps: { value: index }
+                      },
+                      [_vm._v(_vm._s(op))]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _vm.inputs.length > 1
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger p-2 ",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteRow(index)
+                          }
+                        }
+                      },
+                      [_vm._v(" X")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm.errors.errors.size
+                  ? _c(
+                      "span",
+                      { staticClass: "error-text  text-danger help-text" },
+                      [_vm._v(_vm._s(_vm.errors.errors.size[index]) + " ")]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary p-3",
+              attrs: { type: "button" },
+              on: { click: _vm.addRow }
+            },
+            [_vm._v("Add Row")]
+          )
+        ],
+        2
+      )
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c023248a", module.exports)
+  }
+}
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

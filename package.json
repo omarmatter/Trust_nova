@@ -13,7 +13,11 @@
         "build-row-feilde": "cd nova-components/RowFeilde && npm run dev",
         "build-row-feilde-prod": "cd nova-components/RowFeilde && npm run prod",
         "build-repeat-row": "cd nova-components/RepeatRow && npm run dev",
-        "build-repeat-row-prod": "cd nova-components/RepeatRow && npm run prod"
+        "build-repeat-row-prod": "cd nova-components/RepeatRow && npm run prod",
+        "build-ChatTicket": "cd nova-components/ChatTicket && npm run dev",
+        "build-ChatTicket-prod": "cd nova-components/ChatTicket && npm run prod",
+        "build-chatticket": "cd nova-components/Chatticket && npm run dev",
+        "build-chatticket-prod": "cd nova-components/Chatticket && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.21",
